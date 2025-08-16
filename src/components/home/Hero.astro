@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+import osuCookieImg from "../../assets/images/osu-cookie.svg";
+import heroImg from "../../assets/images/hero-image2.png";
+import cardImg1 from "../../assets/images/card-image1.svg";
+import cardImg2 from "../../assets/images/card-image2.svg";
+import cardImg3 from "../../assets/images/card-image3.svg";
+import cardImg4 from "../../assets/images/card-image4.svg";
+import cardImg5 from "../../assets/images/card-image5.svg";
+import cardImg6 from "../../assets/images/card-image6.svg";
+import cardImg7 from "../../assets/images/card-image7.svg";
+import cardImg8 from "../../assets/images/card-image8.svg";
+import GsuButton from "../general/GsuButton.astro";
+import {
+	ArrowDownToLine,
+	Book,
+	UserRoundPlus,
+	MonitorCheck,
+	Rocket,
+	MessageSquareHeart,
+	Settings,
+	Bug,
+	GitFork,
+	Send,
+	ChartColumnBig,
+} from "@lucide/astro";
+import ShieldsBadge from "./ShieldsBadge.astro";
+import Qq from "simple-icons-astro/Qq";
+import Github from "simple-icons-astro/Github";
+import Discord from "simple-icons-astro/Discord";
+import InfoCard from "./InfoCard.astro";
+---
+
+<main class="grid lg:grid-cols-2 w-full place-items-center pt-12 pb-12 md:pt-18">
+	<div class="py-6 md:order-1 hidden md:block w-full">
+		<img src={heroImg.src} alt="gsu hero image" class="w-128 ml-auto object-contain" />
+	</div>
+	<div class="w-full flex flex-col items-start justify-start">
+		<h1
+			class="text-3xl lg:text-5xl flex flex-row items-center font-bold text-primary-800 dark:text-primary-400 lg:tracking-tight xl:tracking-tighter">
+			<span>可能是最好的</span>
+			<Image src={osuCookieImg} alt="" class="h-15 w-15 mx-2" />
+			<span>私服</span>
+		</h1>
+		<p class="text-xl mt-4 text-zinc-600 dark:text-zinc-400 max-w-xl">
+			gsu! 是一个全新的<span class="shiny-sec font-bold">支持 lazer 客户端</span>的 osu! 第三方服务器。提供了 standard / taiko / catch
+			/ mania 四大模式支持，支持 RX/AP pp计算与无限制改名，让你的节奏旅程更自由。
+		</p>
+		<div class="flex flex-col mt-4">
+			<p class="text-primary-700 dark:text-primary-300 text-base font-bold flex items-center my-0">
+				<span class="inline-flex items-center gap-2">
+					<span class="w-3 h-3 rounded-full bg-green-500 dark:bg-green-400 animate-pulse"></span>
+					服务正常运行中
+				</span>
+				<span class="mx-2">·</span>
+				<span>加入 QQ / Discord 社区获取支持与更新</span>
+			</p>
+			<div class="flex flex-row mt-2 gap-2">
+				<ShieldsBadge
+					label="QQ群"
+					message="1059561526"
+					labelClass="bg-zinc-700 text-white"
+					messageClass="text-white bg-sky-600 dark:bg-sky-700">
+					<Qq class="h-4 -ml-1" slot="logo" />
+				</ShieldsBadge>
+				<ShieldsBadge
+					label="Discord"
+					message="rt94zPuE"
+					labelClass="bg-zinc-700 text-white"
+					messageClass="text-white bg-yellow-600 dark:bg-yellow-700">
+					<Discord class="h-4 -ml-1" slot="logo" />
+				</ShieldsBadge>
+				<ShieldsBadge
+					label="GitHub"
+					message="Gu Team"
+					labelClass="bg-zinc-700 text-white"
+					messageClass="text-white bg-teal-600 dark:bg-teal-700">
+					<Github class="h-4 -ml-1" slot="logo" />
+				</ShieldsBadge>
+			</div>
+		</div>
+		<div class="mt-12 flex flex-col sm:flex-row gap-3">
+			<GsuButton text="使用文档" bgClass="bg-primary-500 dark:bg-primary-600">
+				<Book class="h-5.5" slot="icon" />
+			</GsuButton>
+			<GsuButton bgClass="bg-teal-600 dark:bg-teal-700" text="下载客户端">
+				<ArrowDownToLine class="h-5.5" slot="icon" />
+			</GsuButton>
+			<GsuButton bgClass="bg-sky-600 dark:bg-sky-700" text="注册">
+				<UserRoundPlus class="h-5.5" slot="icon" />
+			</GsuButton>
+		</div>
+	</div>
+</main>
+<div class="grid grid-cols-4 pb-12 gap-3">
+	<InfoCard image={cardImg1.src} imageAlt="图片描述" title="全平台支持" className="mx-auto">
+		<MonitorCheck slot="icon" class="h-6" />
+		<span slot="content">gsu! 专为 lazer 而打造，这意味着您可在任何支持 osu! lazer 的系统上游玩 gsu! 而不受平台限制</span>
+	</InfoCard>
+	<InfoCard image={cardImg2.src} imageAlt="图片描述" title="谱面加速下载" className="mx-auto">
+		<Rocket slot="icon" class="h-6" />
+		<span slot="content">我们使用了 Sayobot 的谱面镜像加速服务来处理国内玩家的高速下载需求，让谱面下载不再漫长等待</span>
+	</InfoCard>
+	<InfoCard image={cardImg3.src} imageAlt="图片描述" title="活跃的社区支持" className="mx-auto">
+		<MessageSquareHeart slot="icon" class="h-6" />
+		<span slot="content">我们拥有活跃的官方 QQ 社群和 Discord 服务器，为大家提供了一个绝佳的求助/炫耀/吹水平台</span>
+	</InfoCard>
+	<InfoCard image={cardImg4.src} imageAlt="图片描述" title="最强客制化" className="mx-auto">
+		<Settings slot="icon" class="h-6" />
+		<span slot="content">我们支持随意改名，上传自定义头图，以及创建花哨的个人简介和签名，在这里充分发挥您的想象力</span>
+	</InfoCard>
+	<InfoCard image={cardImg5.src} imageAlt="图片描述" title="开发者友好" className="mx-auto">
+		<Bug slot="icon" class="h-6" />
+		<span slot="content">我们的服务端完全按照官方的 osu! v1/v2 API 规范设计，让您更加方便快速的接入bot/服务到 gsu!</span>
+	</InfoCard>
+	<InfoCard image={cardImg6.src} imageAlt="图片描述" title="开源开放" className="mx-auto">
+		<GitFork slot="icon" class="h-6" />
+		<span slot="content">服务端/客户端全部开源免费，服务端还提供了 Hooks 支持，可通过插件来扩充服务端能力（开发中）</span>
+	</InfoCard>
+	<InfoCard image={cardImg7.src} imageAlt="图片描述" title="允许用户谱面提交" className="mx-auto">
+		<Send slot="icon" class="h-6" />
+		<span slot="content">我们允许您提交自制的谱面或在官方服务器中无法计算 pp 的未上榜谱面并通过审核（开发中）</span>
+	</InfoCard>
+	<InfoCard image={cardImg8.src} imageAlt="图片描述" title="rulesets排行" className="mx-auto">
+		<ChartColumnBig slot="icon" class="h-6" />
+		<span slot="content">我们支持自定义 ruleset 模式的分数计算和成绩上传，并提供完善的排行榜支持（开发中）</span>
+	</InfoCard>
+</div>

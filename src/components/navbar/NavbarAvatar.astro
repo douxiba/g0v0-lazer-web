@@ -1,0 +1,24 @@
+---
+const { src, username } = Astro.props;
+
+const bgColors = [
+	"bg-red-500 dark:bg-red-700",
+	"bg-sky-500 dark:bg-sky-700",
+	"bg-teal-500 dark:bg-teal-700",
+	"bg-yellow-500 dark:bg-yellow-700",
+	"bg-purple-500 dark:bg-purple-700",
+];
+---
+
+<div
+	class={`w-9.5 h-9.5 rounded-full overflow-hidden border-solid border-1 border-zinc-700/25 dark:border-zinc-100/50 ${
+		!src ? `${bgColors[Math.floor(Math.random() * bgColors.length)]} text-white flex items-center justify-center` : ""
+	}`}>
+	{
+		src ? (
+			<img src={src} alt={username} class="w-full h-full object-cover rounded-full" />
+		) : (
+			<span class="text-xl font-medium">{username?.[0]?.toUpperCase() ?? ""}</span>
+		)
+	}
+</div>

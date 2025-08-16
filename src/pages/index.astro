@@ -1,11 +1,62 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { Book, ChartColumnBig, CircleUser, House, Music } from "@lucide/astro";
+import NavbarButton from "../components/navbar/NavbarButton.astro";
+import BasicHtmlLayout from "../layouts/BasicHtmlLayout.astro";
+import NavbarAvatar from "../components/navbar/NavbarAvatar.astro";
+import Hero from "../components/home/Hero.astro";
+import "@shoelace-style/shoelace/dist/themes/light.css";
+import Navbar from "../components/navbar/Navbar.astro";
+import NewsSection from "../components/home/NewsSection.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const news = [
+	{
+		id: "lixingweihu",
+		title: "2025年8月10日 服务器例行维护公告",
+		date: "2025-08-10",
+		text: "我们将在周末进行例行服务器维护，请大家提前做好准备。",
+		pinned: true,
+	},
+	{
+		id: "psibekc",
+		title: "New Featured Artist: SPIRIT GARDEN *",
+		date: "2025-08-10",
+		author: "pishifat",
+		image:
+			"https://i.ppy.sh/a76bef8db0f594afefc0368073337fc9f9d90c06/68747470733a2f2f6173736574732e7070792e73682f617274697374732f3438392f6865616465724032782e6a7067",
+	},
+	{
+		id: "apinwec",
+		title: "Monthly Beatmapping Contest: August 2025",
+		date: "2025-08-03",
+		author: "pishifat",
+		image:
+			"https://i.ppy.sh/52ba0f606cb4c314a501ab52a13a9ea35f7236f5/68747470733a2f2f6173736574732e7070792e73682f6d656469612f6d6f6e74686c792d626561746d617070696e672d636f6e746573744032782e706e67",
+	},
+	{
+		id: "psbemfk",
+		title: "New Featured Artist: DraGonis",
+		date: "2025-08-01",
+		author: "pishifat",
+		image:
+			"https://i.ppy.sh/843a0e9ca7cf47a6235f8d192ea2d701b81fb1dd/68747470733a2f2f6173736574732e7070792e73682f617274697374732f3438382f6865616465724032782e6a7067",
+	},
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BasicHtmlLayout bodyClass="dark:bg-zinc-900">
+	<Navbar />
+	<div class="flex flex-col transition-background duration-100 ease-in-out px-12 max-w-82rem mx-auto">
+		<Hero />
+		<NewsSection news={news} />
+	</div>
+</BasicHtmlLayout>
+<script>
+	// import shoelace
+	import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+	setBasePath("/shoelace-assets/");
+	import "@shoelace-style/shoelace";
+
+	// import lit elements
+	import { initLitElements } from "../components/LitElementsRegister";
+	initLitElements();
+</script>

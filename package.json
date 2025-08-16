@@ -9,6 +9,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.9"
+    "@lucide/astro": "^0.539.0",
+    "@shoelace-style/shoelace": "^2.20.1",
+    "astro": "^5.12.9",
+    "dayjs": "^1.11.13",
+    "lit": "^3.3.1",
+    "lucide": "^0.539.0",
+    "simple-icons-astro": "^15.10.0"
+  },
+  "devDependencies": {
+    "@unocss/reset": "^66.4.2",
+    "sass-embedded": "^1.90.0",
+    "unocss": "^66.4.2"
   }
 }

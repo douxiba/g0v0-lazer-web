@@ -1,0 +1,13 @@
+---
+const { href, isActive, text } = Astro.props;
+---
+
+<a
+	href={href}
+	class={`relative h-10 px-3 flex flex-row items-center justify-center rounded-0.5rem select-none transition-background duration-100ms ease-in-out ${isActive ? "mx-1 bg-primary-200/50 dark:bg-primary-800/50 hover:bg-primary-300/50 hover:dark:bg-primary-900/50 text-primary-800 dark:text-primary-50 overflow-hidden font-bold" : " text-zinc-700 dark:text-zinc-200 hover:bg-primary-100/35 hover:dark:bg-zinc-900/70"}`}>
+	<slot name="icon" />
+	<div class="text-1.14rem ml-1.5">{text}</div>
+	<div class="h-1 w-full absolute bottom-0 flex justify-center">
+		<div class={`rounded-full bg-primary-600 dark:bg-primary-500 h-1 w-12 ${!isActive ? "hidden" : ""}`}></div>
+	</div>
+</a>

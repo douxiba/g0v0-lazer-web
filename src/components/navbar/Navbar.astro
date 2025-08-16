@@ -1,0 +1,35 @@
+---
+import { House, Book, ChartColumnBig, Music, CircleUser } from "@lucide/astro";
+import NavbarAvatar from "./NavbarAvatar.astro";
+import NavbarButton from "./NavbarButton.astro";
+---
+
+<header class="w-full fixed top-0 left-0 z-114514">
+	<div
+		class="h-18 backdrop-blur-2xl bg-zinc-50/85 dark:bg-zinc-800/85 border-solid border-0 border-b-1 border-zinc-300 dark:border-zinc-700 flex flex-1 items-center px-12 flex-row">
+		<img src="/gsu.png" alt="g0v0 logo" class="h-8 mr-6 dark:hidden" />
+		<img src="/gsu-white.png" alt="g0v0 logo" class="h-8 mr-6 hidden dark:block" />
+		<div id="navbar-items" class="flex flex-row gap-1">
+			<NavbarButton text="主页" isActive={true}>
+				<House class="h-5.5" slot="icon" />
+			</NavbarButton>
+			<NavbarButton text="Wiki">
+				<Book class="h-5.5" slot="icon" />
+			</NavbarButton>
+			<NavbarButton text="排行榜">
+				<ChartColumnBig class="h-5.5" slot="icon" />
+			</NavbarButton>
+			<NavbarButton text="谱面">
+				<Music class="h-5.5" slot="icon" />
+			</NavbarButton>
+			<NavbarButton text="个人资料">
+				<CircleUser class="h-5.5" slot="icon" />
+			</NavbarButton>
+		</div>
+		<div id="navbar-right" class="flex flex-auto justify-end items-center">
+			<g0v0-navbar-color-switch icon="house" class="mr-2"></g0v0-navbar-color-switch>
+			<NavbarAvatar username="Bliemhax" />
+		</div>
+	</div>
+</header>
+<div class="fake-header h-18 w-full"></div>

@@ -1,3 +1,9 @@
+---
+import "../assets/styles/index.scss";
+
+const { bodyClass } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -7,7 +13,7 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
-	<body>
+	<body class={bodyClass}>
 		<slot />
 	</body>
 </html>

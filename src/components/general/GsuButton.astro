@@ -1,0 +1,11 @@
+---
+const { bgClass = "bg-primary-500", borderWidth = "border-b-3", text = "" } = Astro.props;
+---
+
+<button
+	class={`inline-flex items-center text-white gap-2 px-5 py-2.25 rounded-lg ${bgClass} ${borderWidth} border-black/40 transition-all duration-100 ease-in-out active:border-b-0 active:brightness-90 active:mt-3px`}>
+	<span class="flex items-center">
+		<slot name="icon" />
+	</span>
+	<span class="text-1.2rem font-bold">{text}</span>
+</button>

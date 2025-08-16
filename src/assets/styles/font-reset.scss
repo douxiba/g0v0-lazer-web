@@ -1,0 +1,171 @@
+// ===== Chinese-friendly Font Reset (SCSS) =====
+@use "sass:map";
+
+// 常用字体栈（按平台与可用性优先级从左到右）
+$font-stacks: (
+	"sans-sc": (
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		"Helvetica Neue",
+		Arial,
+		"Noto Sans",
+		"PingFang SC",
+		"Hiragino Sans GB",
+		"Microsoft YaHei UI",
+		"Microsoft YaHei",
+		"Source Han Sans SC",
+		"Noto Sans CJK SC",
+		"WenQuanYi Micro Hei",
+		"Droid Sans Fallback",
+		"Apple Color Emoji",
+		"Segoe UI Emoji",
+		"Segoe UI Symbol",
+		sans-serif,
+	),
+	"sans-tc": (
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		"Helvetica Neue",
+		Arial,
+		"Noto Sans",
+		"PingFang TC",
+		"Microsoft JhengHei UI",
+		"Microsoft JhengHei",
+		"Source Han Sans TC",
+		"Noto Sans CJK TC",
+		"Apple Color Emoji",
+		"Segoe UI Emoji",
+		"Segoe UI Symbol",
+		sans-serif,
+	),
+	"serif-sc": (
+		Georgia,
+		"Times New Roman",
+		"Noto Serif SC",
+		"Source Han Serif SC",
+		"Songti SC",
+		"SimSun",
+		"STSong",
+		serif,
+	),
+	"serif-tc": (
+		Georgia,
+		"Times New Roman",
+		"Noto Serif TC",
+		"Source Han Serif TC",
+		"PingFang TC",
+		"PMingLiU",
+		"MingLiU",
+		serif,
+	),
+	"mono": (
+		"Maple Mono",
+		"SFMono-Regular",
+		Menlo,
+		Consolas,
+		"JetBrains Mono",
+		"Source Code Pro",
+		"Noto Sans Mono",
+		"DejaVu Sans Mono",
+		"Courier New",
+		monospace,
+	),
+) !default;
+
+// 取字体栈的便捷函数（带兜底）
+@function font-stack($key, $fallback: sans-serif) {
+	@if map.has-key($font-stacks, $key) {
+		@return map.get($font-stacks, $key);
+	} @else {
+		@warn "font-stack: `#{$key}` 不存在，使用 fallback。";
+		@return $fallback;
+	}
+}
+
+// 主 reset：可调字号/行高/使用的字体栈键
+// $stack-key: "sans-sc" | "sans-tc" | "serif-sc" | "serif-tc"
+@mixin font-reset($base-size: 16px, $line-height: 1.5, $stack-key: "sans-sc") {
+	// 基础
+	html {
+		font-size: $base-size;
+		-webkit-text-size-adjust: 100%;
+	}
+
+	body {
+		margin: 0;
+		font-family: font-stack($stack-key);
+		line-height: $line-height;
+		text-rendering: optimizeLegibility; // 连字/字距更优
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	// 标题继承并稍微紧凑些
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: inherit;
+		font-weight: 600;
+		line-height: 1.25;
+		margin: 0;
+	}
+
+	// 表单控件继承字体与字距，避免系统默认
+	button,
+	input,
+	select,
+	textarea {
+		font: inherit;
+		letter-spacing: inherit;
+		color: inherit;
+	}
+
+	// 代码等宽字体
+	code,
+	kbd,
+	pre,
+	samp {
+		font-family: font-stack("mono", monospace);
+	}
+	pre {
+		white-space: pre;
+		overflow: auto;
+	}
+
+	// 实用类：强制指定简繁/衬线
+	.font-sans-sc {
+		font-family: font-stack("sans-sc");
+	}
+	.font-sans-tc {
+		font-family: font-stack("sans-tc");
+	}
+	.font-serif-sc {
+		font-family: font-stack("serif-sc");
+	}
+	.font-serif-tc {
+		font-family: font-stack("serif-tc");
+	}
+	.font-mono {
+		font-family: font-stack("mono");
+	}
+
+	// Emoji 放在字体栈末尾已处理；如需更激进的抗锯齿，可按需添加：
+	// * { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+}
+
+// ===== 使用示例 =====
+// 1) 简体中文无衬线为默认：
+// @include font-reset();
+
+// 2) 繁体中文站点，稍大字号：
+// @include font-reset(17px, 1.6, "sans-tc");
+
+// 3) 文艺风衬线中文：
+// @include font-reset(16px, 1.65, "serif-sc");
