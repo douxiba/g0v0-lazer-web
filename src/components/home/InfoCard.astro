@@ -20,7 +20,7 @@ const { image, imageAlt, title, className = "" } = Astro.props;
 			<div
 				class="flex flex-row gap-x-2 items-center mb-2 text-gray-900 group-hover:text-primary-800 dark:text-zinc-100 dark:group-hover:text-primary-100">
 				<slot name="icon" />
-				<h3 class="text-1.35rem font-semibold transition-all duration-150 ease-in-out leading-tight">
+				<h3 class="text-1.35rem line-clamp-1 text-ellipsis font-semibold transition-all duration-150 ease-in-out leading-tight">
 					{title}
 				</h3>
 			</div>

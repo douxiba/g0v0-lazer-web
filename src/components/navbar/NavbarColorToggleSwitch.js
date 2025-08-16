@@ -19,7 +19,7 @@ export class NavbarColorToggleSwitch extends LitElement {
 
 	render() {
 		return html`<div
-			class="h-6 w-10.5 p-0.75 px-0.25 block rounded-full transition-all duration-100 ease-in-out bg-zinc-200 dark:bg-zinc-700/75 border-solid border-1 border-zinc-400 dark:border-zinc-600 group hover:border-primary-600 hover:bg-primary-900/20 flex items-center ${this
+			class="h-6 w-10.5 px-0.25 rounded-full transition-all duration-100 ease-in-out bg-zinc-200 dark:bg-zinc-700/75 border-solid border-1 border-zinc-400 dark:border-zinc-600 group hover:border-primary-600 hover:bg-primary-900/20 flex items-center ${this
 				.class} ${this.isDarkMode ? "pl-4.75" : ""}"
 			@click="${this._switchColorMode}">
 			<div

@@ -2,6 +2,23 @@
 import { House, Book, ChartColumnBig, Music, CircleUser } from "@lucide/astro";
 import NavbarAvatar from "./NavbarAvatar.astro";
 import NavbarButton from "./NavbarButton.astro";
+import { getEntry } from "astro:content";
+import { createIntlCache, createIntl } from "@formatjs/intl";
+
+const { lang } = Astro.props;
+const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
+const langEnUs = (await getEntry("i18n", "en-US"))?.data;
+const cache = createIntlCache();
+const intl = createIntl(
+	{
+		// Locale of the application
+		locale: lang,
+		// Locale of the fallback defaultMessage
+		defaultLocale: "en-US",
+		messages: langObj,
+	},
+	cache,
+);
 ---
 
 <header class="w-full fixed top-0 left-0 z-114514">
@@ -10,19 +27,19 @@ import NavbarButton from "./NavbarButton.astro";
 		<img src="/gsu.png" alt="g0v0 logo" class="h-8 mr-6 dark:hidden" />
 		<img src="/gsu-white.png" alt="g0v0 logo" class="h-8 mr-6 hidden dark:block" />
 		<div id="navbar-items" class="flex flex-row gap-1">
-			<NavbarButton text="主页" isActive={true}>
+			<NavbarButton text={intl.formatMessage({ id: "navbar.home", defaultMessage: langEnUs["navbar.home"] })} isActive={true}>
 				<House class="h-5.5" slot="icon" />
 			</NavbarButton>
-			<NavbarButton text="Wiki">
+			<NavbarButton text={intl.formatMessage({ id: "navbar.wiki", defaultMessage: langEnUs["navbar.wiki"] })}>
 				<Book class="h-5.5" slot="icon" />
 			</NavbarButton>
-			<NavbarButton text="排行榜">
+			<NavbarButton text={intl.formatMessage({ id: "navbar.ranking", defaultMessage: langEnUs["navbar.ranking"] })}>
 				<ChartColumnBig class="h-5.5" slot="icon" />
 			</NavbarButton>
-			<NavbarButton text="谱面">
+			<NavbarButton text={intl.formatMessage({ id: "navbar.beatmaps", defaultMessage: langEnUs["navbar.beatmaps"] })}>
 				<Music class="h-5.5" slot="icon" />
 			</NavbarButton>
-			<NavbarButton text="个人资料">
+			<NavbarButton text={intl.formatMessage({ id: "navbar.profile", defaultMessage: langEnUs["navbar.profile"] })}>
 				<CircleUser class="h-5.5" slot="icon" />
 			</NavbarButton>
 		</div>

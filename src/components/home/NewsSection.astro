@@ -4,6 +4,8 @@ import pinnedImage1 from "../../assets/images/pinned-news-illustrate.svg";
 import { Pin, Newspaper } from "@lucide/astro";
 import { Clock, UserPen } from "@lucide/astro";
 import Button from "../general/Button.astro";
+import { createIntlCache, createIntl } from "@formatjs/intl";
+import { getEntry } from "astro:content";
 
 interface News {
 	id: string;
@@ -25,12 +27,31 @@ const { news = [] } = Astro.props;
 const pinnedNews = news.find((n) => n.pinned);
 // 非 pinned 新闻
 const otherNews = news.filter((n) => !n.pinned);
+
+const { lang } = Astro.props;
+const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
+const langEnUs = (await getEntry("i18n", "en-US"))?.data;
+const cache = createIntlCache();
+const intl = createIntl(
+	{
+		// Locale of the application
+		locale: lang,
+		// Locale of the fallback defaultMessage
+		defaultLocale: "en-US",
+		messages: langObj,
+	},
+	cache,
+);
 ---
 
 <section class="my-12">
 	<!-- 标题 -->
-	<h2 class="text-4xl font-bold text-center text-zinc-800 dark:text-zinc-50">看看我们最近发生了啥新鲜事</h2>
-	<p class="mt-2 text-xl text-center text-zinc-600 dark:text-zinc-400">在这里详细了解我们的最新新闻，包括活动通知/服务器公告等</p>
+	<h2 class="text-4xl font-bold text-center text-zinc-800 dark:text-zinc-50">
+		{intl.formatMessage({ id: "news.title", defaultMessage: langEnUs["news.title"] })}
+	</h2>
+	<p class="mt-2 text-xl text-center text-zinc-600 dark:text-zinc-400">
+		{intl.formatMessage({ id: "news.description", defaultMessage: langEnUs["news.description"] })}
+	</p>
 
 	<!-- 第一行：pinned 卡片 -->
 	{
@@ -50,11 +71,12 @@ const otherNews = news.filter((n) => !n.pinned);
 						<div class="flex justify-end">
 							<div class="flex flex-row items-center gap-x-0.5 py-0.5 px-1.5 text-sm rounded-full bg-primary-100 dark:bg-primary-800 border-solid border-1 border-primary-400 dark:bg-primary-600 text-primary-700 dark:text-primary-100">
 								<Pin class="h-4 w-4" />
-								<span>置顶公告</span>
+								<span>{intl.formatMessage({ id: "news.pinned", defaultMessage: langEnUs["news.pinned"] })}</span>
 							</div>
 						</div>
 						<div class="text-sm text-primary-800 dark:text-primary-100 mt-1">
-							发布于: {dayjs(pinnedNews.date).format("YYYY-M-DD HH:mm:ss")}
+							{intl.formatMessage({ id: "news.publishDate", defaultMessage: langEnUs["news.publishDate"] })}
+							{dayjs(pinnedNews.date).format("YYYY-M-DD HH:mm:ss")}
 						</div>
 					</div>
 				</div>
@@ -76,7 +98,7 @@ const otherNews = news.filter((n) => !n.pinned);
 						<h3 class="text-lg text-ellipsis font-semibold line-clamp-1 text-gray-900 group-hover:text-primary-800 dark:text-zinc-100 dark:group-hover:text-primary-100">
 							{newsItem.title}
 						</h3>
-						<div class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-300 group-hover:text-primary-800/75 dark:group-hover:text-primary-300 leading-normal transition-all duration-150 ease-in-out line-clamp-3 flex flex-row items-center">
+						<div class="mt-0.5 text-sm text-zinc-600 dark:text-zinc-300 group-hover:text-primary-800/75 dark:group-hover:text-primary-300 leading-normal transition-all duration-150 ease-in-out flex flex-row items-center">
 							<Clock class="h-4 w-4 mr-1" />
 							<span>{newsItem.date}</span>
 							<UserPen class="h-4 w-4 ml-3 mr-1" />
@@ -92,7 +114,7 @@ const otherNews = news.filter((n) => !n.pinned);
 	<div class="mt-10 text-center">
 		<Button variant="primary" appearance="outlined" rounded="all" size={["px-6", "py-2"]}>
 			<Newspaper slot="prefix" class="h-5 w-5 mr-1" />
-			查看全部新闻
+			{intl.formatMessage({ id: "news.viewAll", defaultMessage: langEnUs["news.viewAll"] })}
 		</Button>
 	</div>
 </section>
