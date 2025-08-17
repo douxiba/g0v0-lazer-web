@@ -35,5 +35,15 @@
 	"news.description": "Catch up on our latest news, including events, server updates, and more.",
 	"news.publishDate": "Published on: ",
 	"news.pinned": "Pinned",
-	"news.viewAll": "View All News"
+	"news.viewAll": "View All News",
+	"auth.login.title": "Log In to gsu!",
+	"auth.login.description": "Sign in to your account and jam with the <br/> latest 🔥 Aussie rhythm games.",
+	"auth.login.placeholder.username": "Username",
+	"auth.login.placeholder.password": "Password",
+	"auth.login.button.login": "Log In",
+	"auth.login.register.text": "💀 Bro, still no account?",
+	"auth.login.register.link": " Let's fix that!",
+	"auth.login.tos": "By logging in, you agree to our <tos> and <pp>.",
+	"auth.login.tos.tos": "Terms of Service",
+	"auth.login.tos.pp": "Privacy Policy"
 }

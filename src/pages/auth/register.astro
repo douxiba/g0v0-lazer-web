@@ -1,0 +1,166 @@
+---
+import BasicLayout from "../../layouts/BasicLayout.astro";
+import { KeyRound, Mail, CircleUserRound, LogIn, UserRoundPlus } from "@lucide/astro";
+import GsuButton from "../../components/general/GsuButton.astro";
+import { createIntlCache, createIntl } from "@formatjs/intl";
+import { getEntry } from "astro:content";
+const lang = Astro.locals.lang;
+const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
+const langEnUs = (await getEntry("i18n", "en-US"))?.data;
+const cache = createIntlCache();
+const intl = createIntl(
+	{
+		// Locale of the application
+		locale: lang,
+		// Locale of the fallback defaultMessage
+		defaultLocale: "en-US",
+		messages: langObj,
+	},
+	cache,
+);
+---
+
+<BasicLayout
+	containerClass="flex flex-col transition-background duration-100 ease-in-out items-center justify-center px-12 max-w-82rem mx-auto pt-18 min-h-screen">
+	<div class="relative h-20 w-20 mb-3">
+		<img src="/gsu-icononly.png" class="h-20 w-20" />
+		<div
+			class="absolute rounded-full h-6.5 w-6.5 flex items-center justify-center -bottom-0.5 -right-0.5 ring-4 ring-white dark:ring-zinc-900 bg-zinc-200 dark:bg-zinc-700">
+			<KeyRound class="h-4 w-4 dark:text-zinc-100 text-zinc-800" />
+		</div>
+	</div>
+	<h2 class="flex items-center flex-row text-3xl font-bold text-zinc-900 dark:text-zinc-100 text-center mb-3">
+		{intl.formatMessage({ id: "auth.register.title", defaultMessage: langEnUs["auth.register.title"] })}
+	</h2>
+	<p
+		class="text-zinc-500 dark:text-zinc-400 text-center text-base leading-normal"
+		set:html={intl.formatMessage({ id: "auth.register.description", defaultMessage: langEnUs["auth.register.description"] })}
+	/>
+	<div class="flex justify-center w-full mt-6">
+		<div
+			class="bg-zinc-50 max-w-89 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-150 ease-in-out p-8 pb-6 flex flex-col gap-6">
+			<form class="flex flex-col gap-3">
+				<div class="flex flex-col gap-1">
+					<g0v0-auth-register-uninput
+						placeholder={intl.formatMessage({
+							id: "auth.register.placeholder.username",
+							defaultMessage: langEnUs["auth.register.placeholder.username"],
+						})}></g0v0-auth-register-uninput>
+					<p class="flex text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+						用户名仅支持字母、数字和符号，不支持中文。部分知名玩家的用户名不被允许使用
+					</p>
+				</div>
+
+				<div class="flex flex-col gap-1">
+					<div
+						class="relative rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 transition">
+						<input
+							type="email"
+							id="username"
+							placeholder={intl.formatMessage({
+								id: "auth.register.placeholder.email",
+								defaultMessage: langEnUs["auth.register.placeholder.email"],
+							})}
+							class="w-full transition-all duration-150 ease-in-out px-3 pl-10 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-zinc-400 dark:placeholder-zinc-500"
+						/>
+						<div class="absolute top-0 left-0 w-10 h-full flex items-center justify-center">
+							<Mail class="h-5 w-5 ml-1 text-zinc-400 dark:text-zinc-500" />
+						</div>
+					</div>
+				</div>
+
+				<div class="flex flex-col gap-1 mt-3">
+					<div
+						class="relative rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 transition">
+						<input
+							type="password"
+							id="password"
+							placeholder={intl.formatMessage({
+								id: "auth.register.placeholder.password",
+								defaultMessage: langEnUs["auth.register.placeholder.password"],
+							})}
+							class="w-full transition-all duration-150 ease-in-out px-3 pl-10 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-zinc-400 dark:placeholder-zinc-500"
+						/>
+						<div class="absolute top-0 left-0 w-10 h-full flex items-center justify-center">
+							<KeyRound class="h-5 w-5 ml-1 text-zinc-400 dark:text-zinc-500" />
+						</div>
+					</div>
+					<p class="flex text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">需设置高强度密码，请妥善保管好您的密码。</p>
+				</div>
+
+				<div class="flex flex-col gap-1">
+					<div
+						class="relative rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 transition">
+						<input
+							type="password"
+							id="password"
+							placeholder={intl.formatMessage({
+								id: "auth.register.placeholder.confirmPassword",
+								defaultMessage: langEnUs["auth.register.placeholder.confirmPassword"],
+							})}
+							class="w-full transition-all duration-150 ease-in-out px-3 pl-10 py-1.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-zinc-400 dark:placeholder-zinc-500"
+						/>
+						<div class="absolute top-0 left-0 w-10 h-full flex items-center justify-center">
+							<KeyRound class="h-5 w-5 ml-1 text-zinc-400 dark:text-zinc-500" />
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<div class="flex w-full justify-center mt-1">
+				<GsuButton
+					text={intl.formatMessage({ id: "auth.login.button.login", defaultMessage: langEnUs["auth.login.button.login"] })}
+					bgClass="bg-primary-500 dark:bg-primary-600">
+					<LogIn class="h-5.5" slot="icon" />
+				</GsuButton>
+			</div>
+		</div>
+	</div>
+	<p class="flex items-center text-center text-base text-zinc-500 dark:text-zinc-400 mt-8 gap-x-2">
+		<UserRoundPlus class="h-4.5 -pr-1" slot="icon" />
+		{
+			intl.formatMessage({
+				id: "auth.login.register.text",
+				defaultMessage: langEnUs["auth.login.register.text"],
+			})
+		}
+		<a href="#" class="font-bold text-primary-600 dark:text-primary-400 hover:underline"
+			>{
+				intl.formatMessage({
+					id: "auth.login.register.link",
+					defaultMessage: langEnUs["auth.login.register.link"],
+				})
+			}</a
+		>
+	</p>
+	<p class="flex items-center text-center text-xs text-zinc-500 dark:text-zinc-400 mt-2 gap-x-1">
+		{
+			intl
+				.formatMessage({ id: "auth.login.tos", defaultMessage: langEnUs["auth.login.tos"] })
+				.replace("<tos>", "|<tos>|")
+				.replace("<pp>", "|<pp>|")
+				.split("|")
+				.map((e) => {
+					if (e === "<tos>")
+						return (
+							<a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">
+								{intl.formatMessage({
+									id: "auth.login.tos.tos",
+									defaultMessage: langEnUs["auth.login.tos.tos"],
+								})}
+							</a>
+						);
+					else if (e === "<pp>")
+						return (
+							<a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">
+								{intl.formatMessage({
+									id: "auth.login.tos.pp",
+									defaultMessage: langEnUs["auth.login.tos.pp"],
+								})}
+							</a>
+						);
+					else return e;
+				})
+		}
+	</p>
+</BasicLayout>

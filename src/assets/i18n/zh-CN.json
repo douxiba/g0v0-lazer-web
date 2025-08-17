@@ -35,5 +35,21 @@
 	"news.description": "在这里详细了解我们的最新新闻，包括活动通知/服务器公告等",
 	"news.publishDate": "发布于: ",
 	"news.pinned": "置顶公告",
-	"news.viewAll": "查看全部新闻"
+	"news.viewAll": "查看全部新闻",
+	"auth.login.title": "登录 gsu!",
+	"auth.login.description": " 登录你的账户以游玩<br/>最新最热的澳洲音游原神",
+	"auth.login.placeholder.username": "用户名",
+	"auth.login.placeholder.password": "密码",
+	"auth.login.button.login": "登录",
+	"auth.login.register.text": "哥们，还没有账号？",
+	"auth.login.register.link": "来注册个!",
+	"auth.login.tos": "登录即表示您同意我们的 <tos> 和 <pp>。",
+	"auth.login.tos.tos": "服务条款",
+	"auth.login.tos.pp": "隐私保护政策",
+	"auth.register.title": "注册新账号",
+	"auth.register.description": "注册新账号以享受<br/>手握私有节奏粉饼的快乐感",
+	"auth.register.placeholder.username": "用户名",
+	"auth.register.placeholder.password": "密码",
+	"auth.register.placeholder.email": "Email地址",
+	"auth.register.placeholder.confirmPassword": "确认密码"
 }

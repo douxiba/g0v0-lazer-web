@@ -7,7 +7,7 @@ import { createIntlCache, createIntl } from "@formatjs/intl";
 import { GenerateRandomString } from "../../utils/Random";
 import I18nButton from "./I18nButton.astro";
 
-const { lang } = Astro.props;
+const lang = Astro.locals.lang;
 const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
 const langEnUs = (await getEntry("i18n", "en-US"))?.data;
 const cache = createIntlCache();
@@ -21,6 +21,8 @@ const intl = createIntl(
 	},
 	cache,
 );
+
+console.log(Astro.locals.lang);
 
 let i18n_cn_menuitem_id = GenerateRandomString(8) + "-menuitem";
 let i18n_us_menuitem_id = GenerateRandomString(8) + "-menuitem";

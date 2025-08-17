@@ -28,7 +28,7 @@ const pinnedNews = news.find((n) => n.pinned);
 // 非 pinned 新闻
 const otherNews = news.filter((n) => !n.pinned);
 
-const { lang } = Astro.props;
+const lang = Astro.locals.lang;
 const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
 const langEnUs = (await getEntry("i18n", "en-US"))?.data;
 const cache = createIntlCache();

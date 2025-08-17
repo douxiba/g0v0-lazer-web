@@ -32,7 +32,7 @@ import InfoCard from "./InfoCard.astro";
 import { createIntlCache, createIntl } from "@formatjs/intl";
 import { getEntry } from "astro:content";
 
-const { lang } = Astro.props;
+const lang = Astro.locals.lang;
 const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
 const langEnUs = (await getEntry("i18n", "en-US"))?.data;
 const cache = createIntlCache();

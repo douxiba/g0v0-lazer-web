@@ -1,16 +1,7 @@
 ---
-import BasicHtmlLayout from "../layouts/BasicHtmlLayout.astro";
 import Hero from "../components/home/Hero.astro";
-import "@shoelace-style/shoelace/dist/themes/light.css";
-import Navbar from "../components/navbar/Navbar.astro";
 import NewsSection from "../components/home/NewsSection.astro";
-
-const acceptLang = Astro.request.headers.get("Accept-Language") || "en-US";
-const browserLang = acceptLang.split(",")[0];
-const queryLang = Astro.url.searchParams.get("lang");
-const lang = queryLang || browserLang || "en-US";
-
-export const prerender = false;
+import BasicLayout from "../layouts/BasicLayout.astro";
 
 const news = [
 	{
@@ -47,20 +38,7 @@ const news = [
 ];
 ---
 
-<BasicHtmlLayout bodyClass="dark:bg-zinc-900">
-	<Navbar lang={lang} />
-	<div class="flex flex-col transition-background duration-100 ease-in-out px-12 max-w-82rem mx-auto">
-		<Hero lang={lang} />
-		<NewsSection lang={lang} news={news} />
-	</div>
-</BasicHtmlLayout>
-<script>
-	// import shoelace
-	import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
-	setBasePath("/shoelace-assets/");
-	import "@shoelace-style/shoelace";
-
-	// import lit elements
-	import { initLitElements } from "../components/LitElementsRegister";
-	initLitElements();
-</script>
+<BasicLayout>
+	<Hero lang={Astro.locals.lang} />
+	<NewsSection lang={Astro.locals.lang} news={news} />
+</BasicLayout>

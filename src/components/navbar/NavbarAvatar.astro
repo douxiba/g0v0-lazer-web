@@ -1,24 +1,43 @@
 ---
+import defaultAvatar from "../../assets/images/avatars/default.jpg";
+import { CircleUserRound, UserRoundPlus } from "@lucide/astro";
 const { src, username } = Astro.props;
-
-const bgColors = [
-	"bg-red-500 dark:bg-red-700",
-	"bg-sky-500 dark:bg-sky-700",
-	"bg-teal-500 dark:bg-teal-700",
-	"bg-yellow-500 dark:bg-yellow-700",
-	"bg-purple-500 dark:bg-purple-700",
-];
 ---
 
-<div
-	class={`w-9.5 h-9.5 rounded-full overflow-hidden border-solid border-1 border-zinc-700/25 dark:border-zinc-100/50 ${
-		!src ? `${bgColors[Math.floor(Math.random() * bgColors.length)]} text-white flex items-center justify-center` : ""
-	}`}>
-	{
-		src ? (
-			<img src={src} alt={username} class="w-full h-full object-cover rounded-full" />
-		) : (
-			<span class="text-xl font-medium">{username?.[0]?.toUpperCase() ?? ""}</span>
-		)
+<sl-dropdown id="user_menu" placement="top-end" distance="8" class="mr-3">
+	<div
+		slot="trigger"
+		class={`w-9.5 h-9.5 rounded-full overflow-hidden border-solid border-1 border-zinc-700/25 dark:border-zinc-100/50 ${
+			!src ? `border-zinc-400 dark:border-zinc-600 text-white flex items-center justify-center` : ""
+		}`}>
+		{
+			src ? (
+				<img src={src} alt={username} class="w-full h-full object-cover rounded-full" />
+			) : (
+				<img src={defaultAvatar.src} alt={username} class="w-full h-full object-cover rounded-full" />
+			)
+		}
+	</div>
+	<div
+		class="border-solid border-1 w-40 overflow-hidden border-zinc-200 bg-white dark:bg-zinc-900 dark:border-zinc-700 rounded-lg flex flex-col">
+		<sl-menu-item>
+			<CircleUserRound slot="prefix" class="h-5 w-5 mr-1.5 -ml-3" />
+			登录
+		</sl-menu-item>
+		<sl-menu-item>
+			<UserRoundPlus slot="prefix" class="h-5 w-5 mr-1.5 -ml-3" />
+			注册新账户
+		</sl-menu-item>
+	</div>
+</sl-dropdown>
+<style type="text/css">
+	sl-menu-item::part(base) {
+		@apply text-zinc-600 dark:text-zinc-300;
 	}
-</div>
+	sl-menu-item::part(base):hover {
+		@apply bg-zinc-100 dark:bg-zinc-700/50;
+	}
+	sl-menu-item::part(base):active {
+		@apply bg-zinc-200 dark:bg-zinc-800/75;
+	}
+</style>

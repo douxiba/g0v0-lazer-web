@@ -3,7 +3,7 @@ import { Languages } from "@lucide/astro";
 import CnFlag from "../../assets/images/flags/cn.svg";
 import UsFlag from "../../assets/images/flags/us.svg";
 
-const { lang } = Astro.props;
+const lang = Astro.locals.lang;
 ---
 
 <div class="sr-only" id="i18n_menu_data">
@@ -12,10 +12,11 @@ const { lang } = Astro.props;
 <sl-dropdown id="i18n_menu" placement="top-end" distance="8" class="mr-3">
 	<div
 		slot="trigger"
-		class="i18n_trigger rounded-full flex items-center justify-center shrink-0 p-2 text-zinc-600 data-[forcestate=active]:bg-zinc-50 dark:data-[forcestate=active]:bg-zinc-800 data-[forcestate=active]:brightness-90 hover:bg-zinc-200/75 dark:text-zinc-300 dark:hover:bg-zinc-800 active:brightness-90">
+		class="i18n_trigger rounded-full flex items-center justify-center shrink-0 p-2 text-zinc-600 data-[forcestate=active]:bg-zinc-50 dark:data-[forcestate=active]:bg-zinc-700 data-[forcestate=active]:brightness-90 dark:data-[forcestate=active]:brightness-100 hover:bg-zinc-200/75 dark:text-zinc-300 dark:hover:bg-zinc-600/50 active:brightness-90 dark:active:brightness-75">
 		<Languages class="h-6 w-6" />
 	</div>
-	<div class="shadow-sm border-solid border-1 border-zinc-200 bg-white rounded-lg flex flex-col">
+	<div
+		class="overflow-hidden border-solid border-1 border-zinc-200 bg-white dark:bg-zinc-900 dark:border-zinc-700 rounded-lg flex flex-col">
 		<sl-menu-item id="i18n_button_zh-CN" lang="zh-CN" type="checkbox">
 			<img src={CnFlag.src} slot="prefix" class="h-4.5 rounded-xs mr-2.5" />
 			中文（简体）
@@ -27,11 +28,14 @@ const { lang } = Astro.props;
 	</div>
 </sl-dropdown>
 <style type="text/css">
+	sl-menu-item::part(base) {
+		@apply text-zinc-600 dark:text-zinc-300;
+	}
 	sl-menu-item::part(base):hover {
-		@apply bg-zinc-100;
+		@apply bg-zinc-100 dark:bg-zinc-700/50;
 	}
 	sl-menu-item::part(base):active {
-		@apply bg-zinc-200;
+		@apply bg-zinc-200 dark:bg-zinc-800/75;
 	}
 </style>
 <script>
@@ -45,6 +49,8 @@ const { lang } = Astro.props;
 
 	// 处理菜单项目切换语言
 	let lang = document.querySelector("#i18n_menu_data span.i18n_menu_data_lang")?.innerHTML;
+	console.log(lang);
+
 	let menuitems_children = document.querySelectorAll("#i18n_menu sl-menu-item");
 	console.log(menuitems_children);
 	for (const child of menuitems_children) {

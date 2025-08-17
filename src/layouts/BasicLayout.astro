@@ -1,0 +1,18 @@
+---
+import Hero from "../components/home/Hero.astro";
+import NewsSection from "../components/home/NewsSection.astro";
+import Navbar from "../components/navbar/Navbar.astro";
+import BasicHtmlLayout from "./BasicHtmlLayout.astro";
+import "@shoelace-style/shoelace/dist/themes/light.css";
+
+export const prerender = false;
+
+const { containerClass } = Astro.props;
+---
+
+<BasicHtmlLayout bodyClass="dark:bg-zinc-900">
+	<Navbar lang={Astro.locals.lang} />
+	<div class={containerClass || "flex flex-col transition-background duration-100 ease-in-out px-12 max-w-82rem mx-auto"}>
+		<slot />
+	</div>
+</BasicHtmlLayout>
