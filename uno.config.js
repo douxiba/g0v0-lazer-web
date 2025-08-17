@@ -1,5 +1,6 @@
 // uno.config.ts
 import { defineConfig, presetWind4 } from "unocss";
+import transformerDirectives from "@unocss/transformer-directives";
 
 export default defineConfig({
 	content: {
@@ -12,6 +13,7 @@ export default defineConfig({
 			],
 		},
 	},
+	transformers: [transformerDirectives()],
 	theme: {
 		colors: {
 			primary: {

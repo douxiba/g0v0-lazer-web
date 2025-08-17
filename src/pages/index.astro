@@ -10,6 +10,8 @@ const browserLang = acceptLang.split(",")[0];
 const queryLang = Astro.url.searchParams.get("lang");
 const lang = queryLang || browserLang || "en-US";
 
+export const prerender = false;
+
 const news = [
 	{
 		id: "lixingweihu",

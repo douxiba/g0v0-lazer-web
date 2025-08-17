@@ -1,0 +1,61 @@
+---
+import { Languages } from "@lucide/astro";
+import CnFlag from "../../assets/images/flags/cn.svg";
+import UsFlag from "../../assets/images/flags/us.svg";
+
+const { lang } = Astro.props;
+---
+
+<div class="sr-only" id="i18n_menu_data">
+	<span class="i18n_menu_data_lang">{lang}</span>
+</div>
+<sl-dropdown id="i18n_menu" placement="top-end" distance="8" class="mr-3">
+	<div
+		slot="trigger"
+		class="i18n_trigger rounded-full flex items-center justify-center shrink-0 p-2 text-zinc-600 data-[forcestate=active]:bg-zinc-50 dark:data-[forcestate=active]:bg-zinc-800 data-[forcestate=active]:brightness-90 hover:bg-zinc-200/75 dark:text-zinc-300 dark:hover:bg-zinc-800 active:brightness-90">
+		<Languages class="h-6 w-6" />
+	</div>
+	<div class="shadow-sm border-solid border-1 border-zinc-200 bg-white rounded-lg flex flex-col">
+		<sl-menu-item id="i18n_button_zh-CN" lang="zh-CN" type="checkbox">
+			<img src={CnFlag.src} slot="prefix" class="h-4.5 rounded-xs mr-2.5" />
+			中文（简体）
+		</sl-menu-item>
+		<sl-menu-item id="i18n_button_en-US" lang="en-US" type="checkbox">
+			<img src={UsFlag.src} slot="prefix" class="h-4.5 rounded-xs mr-2.5" />
+			English
+		</sl-menu-item>
+	</div>
+</sl-dropdown>
+<style type="text/css">
+	sl-menu-item::part(base):hover {
+		@apply bg-zinc-100;
+	}
+	sl-menu-item::part(base):active {
+		@apply bg-zinc-200;
+	}
+</style>
+<script>
+	// 处理按钮样式
+	document.querySelector("#i18n_menu")?.addEventListener("sl-show", (e) => {
+		document.querySelector("#i18n_menu .i18n_trigger")?.setAttribute("data-forcestate", "active");
+	});
+	document.querySelector("#i18n_menu")?.addEventListener("sl-hide", (e) => {
+		document.querySelector("#i18n_menu .i18n_trigger")?.removeAttribute("data-forcestate");
+	});
+
+	// 处理菜单项目切换语言
+	let lang = document.querySelector("#i18n_menu_data span.i18n_menu_data_lang")?.innerHTML;
+	let menuitems_children = document.querySelectorAll("#i18n_menu sl-menu-item");
+	console.log(menuitems_children);
+	for (const child of menuitems_children) {
+		if (child.id == `i18n_button_${lang}`) child.checked = true;
+		else {
+			child.checked = false;
+			child.addEventListener("click", (e) => {
+				const urlParams = new URLSearchParams(window.location.search);
+				urlParams.set("lang", child.getAttribute("lang"));
+				window.location.search = urlParams;
+			});
+		}
+	}
+</script>

@@ -1,9 +1,11 @@
 ---
-import { House, Book, ChartColumnBig, Music, CircleUser } from "@lucide/astro";
+import { House, Book, ChartColumnBig, Music, CircleUser, Languages } from "@lucide/astro";
 import NavbarAvatar from "./NavbarAvatar.astro";
 import NavbarButton from "./NavbarButton.astro";
 import { getEntry } from "astro:content";
 import { createIntlCache, createIntl } from "@formatjs/intl";
+import { GenerateRandomString } from "../../utils/Random";
+import I18nButton from "./I18nButton.astro";
 
 const { lang } = Astro.props;
 const langObj = (await getEntry("i18n", lang || "en-US"))?.data;
@@ -19,6 +21,9 @@ const intl = createIntl(
 	},
 	cache,
 );
+
+let i18n_cn_menuitem_id = GenerateRandomString(8) + "-menuitem";
+let i18n_us_menuitem_id = GenerateRandomString(8) + "-menuitem";
 ---
 
 <header class="w-full fixed top-0 left-0 z-114514">
@@ -44,7 +49,9 @@ const intl = createIntl(
 			</NavbarButton>
 		</div>
 		<div id="navbar-right" class="flex flex-auto justify-end items-center">
-			<g0v0-navbar-color-switch icon="house" class="mr-2"></g0v0-navbar-color-switch>
+			<g0v0-navbar-color-switch class="mr-1"></g0v0-navbar-color-switch>
+			<div class="w-1.5px h-6 bg-zinc-300 dark:bg-zinc-600 rounded-full mx-2"></div>
+			<I18nButton lang={lang} />
 			<NavbarAvatar username="Bliemhax" />
 		</div>
 	</div>
